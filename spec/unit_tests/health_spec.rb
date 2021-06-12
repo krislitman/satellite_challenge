@@ -15,8 +15,27 @@ RSpec.describe '/health', type: :request do
   describe '/health if the average altitude goes below 160km for more than 1 min' do 
     it 'returns a warning message' do
       Satellite.destroy_all
-      create(:satellite, altitude: 150)
-      create_list(:satellite, 10, altitude: 170)
+      Altitude.destroy_all
+      altitude = Altitude.create(status: "This should be a valid status")
+      danger = Danger.new
+      create(:satellite, altitude: 170)
+      response1 = danger.current_check
+      altitude.check_status(response1)
+      create(:satellite, altitude: 170)
+      response2 = danger.current_check
+      altitude.check_status(response2)
+      create(:satellite, altitude: 170)
+      response3 = danger.current_check
+      altitude.check_status(response3)
+      create(:satellite, altitude: 170)
+      response4 = danger.current_check
+      altitude.check_status(response4)
+      create(:satellite, altitude: 170)
+      response5 = danger.current_check
+      altitude.check_status(response5)
+      create(:satellite, altitude: 170)
+      response6 = danger.current_check
+      altitude.check_status(response6)
 
       get '/api/v1/health'
       
@@ -29,14 +48,7 @@ RSpec.describe '/health', type: :request do
       expect(expected[:data][:type]).to eq('satellite_health')
       expect(expected[:data][:attributes].keys).to include(:message)
       expect(expected[:data][:attributes][:message]).to eq("Altitude is A-OK")
-      
-      create_list(:satellite, 10, altitude: 0)
-      
-      get '/api/v1/health'
-      
-      expected = JSON.parse(response.body, symbolize_names: true)
 
-      require 'pry'; binding.pry
       sleep 1.seconds
     end
   end
