@@ -1,6 +1,6 @@
 class StatsSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :minimum
+  attributes :minimum, :maximum, :average
   set_id { 'null' }
-  set_type :five_minute_stats
+  set_type :five_minute_altitude_stats
 end
