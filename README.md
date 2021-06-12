@@ -75,6 +75,7 @@ To run the full test suite you will need to run the command:
 - Fast JSON API
 - Faraday
 - Shoulda Matchers
+- Factory Bot Rails
 
 ## Versions
 
