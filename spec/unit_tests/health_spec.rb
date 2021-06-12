@@ -19,7 +19,7 @@ RSpec.describe '/health', type: :request do
       create_list(:satellite, 10, altitude: 170)
 
       get '/api/v1/health'
-
+      
       expected = JSON.parse(response.body, symbolize_names: true)
       
       expect(expected[:data]).to be_a(Hash)
@@ -29,7 +29,14 @@ RSpec.describe '/health', type: :request do
       expect(expected[:data][:type]).to eq('satellite_health')
       expect(expected[:data][:attributes].keys).to include(:message)
       expect(expected[:data][:attributes][:message]).to eq("Altitude is A-OK")
+      
+      create_list(:satellite, 10, altitude: 0)
+      
+      get '/api/v1/health'
+      
+      expected = JSON.parse(response.body, symbolize_names: true)
 
+      require 'pry'; binding.pry
       sleep 1.seconds
     end
   end
