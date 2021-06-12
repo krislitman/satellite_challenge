@@ -1,0 +1,3 @@
+class HealthFacade
+  
+end
