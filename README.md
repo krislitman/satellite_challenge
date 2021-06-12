@@ -29,7 +29,8 @@ your local machine for development and testing purposes.
 1. Fork and Clone this repo
 2. Install all the required packages in the Gemfile with the command: `bundle install`
 3. Run `rails db:{drop,create,migrate}` to create and migrate the database
-4. Run rails s to start the rails server (located at localhost:3000)
+4. Run the rake task `rails pull_data:run` which will create a new data object every 10 seconds based on satellite information
+4. Run `rails s` simultaneously to start the rails server (located at localhost:3000)
 5. Enter endpoints (see below) into your browser or Postman to see JSON responses!
 
 ## Endpoints
@@ -40,10 +41,30 @@ your local machine for development and testing purposes.
 
 <ul>
   <li>
+    The **/stats** endpoint returns the minimum, maximum, and average altitude for
+    the satellite over the last five minutes
   </li>
 </ul>
 
 Example Response:
+
+```
+{
+    "data": {
+        "id": "null",
+        "type": "five_minute_altitude_stats",
+        "attributes": {
+            "minimum": [
+                130.29195793775295
+            ],
+            "maximum": [
+                189.99543085469173
+            ],
+            "average": 160.514242921584
+        }
+    }
+}
+```
 
 #### /health
 
