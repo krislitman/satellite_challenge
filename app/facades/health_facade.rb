@@ -9,7 +9,7 @@ class HealthFacade
   
   def find_message
     if @@count != 6
-      “Altitude is A-OK”
+      "Altitude is A-OK"
     else
     end
   end
