@@ -21,9 +21,14 @@ RSpec.describe '/health', type: :request do
       get '/api/v1/health'
 
       expected = JSON.parse(response.body, symbolize_names: true)
-      require 'pry'; binding.pry
+      
       expect(expected[:data]).to be_a(Hash)
-      # expect(expected[:data][:attributes].keys).to include(:message)
+      expect(expected[:data].keys).to include(:id)
+      expect(expected[:data].keys).to include(:type)
+      expect(expected[:data][:id]).to eq('null')
+      expect(expected[:data][:type]).to eq('satellite_health')
+      expect(expected[:data][:attributes].keys).to include(:message)
+      expect(expected[:data][:attributes][:message]).to eq("Altitude is A-OK")
 
       sleep 1.seconds
     end
