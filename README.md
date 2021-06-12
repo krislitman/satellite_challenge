@@ -45,21 +45,6 @@ your local machine for development and testing purposes.
 
 Example Response:
 
-```{
-    "data": {
-        "id": "null",
-        "type": "forecast",
-        "attributes": {
-            "current_weather": {
-                "datetime": "2021-04-24T12:08:35.000-04:00",
-                "sunrise": "2021-04-24T06:55:42.000-04:00",
-                "sunset": "2021-04-24T19:59:47.000-04:00",
-                "temperature": 83.16,
-                etc...
-            }
-        }...
-```
-
 #### /health
 
 **`GET localhost:3000/api/v1/health`**
