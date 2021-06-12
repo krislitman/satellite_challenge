@@ -1,20 +1,15 @@
 class HealthFacade
   attr_reader :message
 
-  @@count = 0
-  
   def initialize
     @message = find_message
   end
   
   def find_message
-    if @@count != 6
+    if Satellite.current_average > 160.0
       "Altitude is A-OK"
-    else
+    elsif Satellite.danger?
+      "WARNING: RAPID ORBITAL DECAY IMMINENT"
     end
-  end
-  
-  def self.counter(num)
-    @@count += num
   end
 end

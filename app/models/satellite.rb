@@ -2,13 +2,28 @@ class Satellite < ApplicationRecord
   validates :last_updated, presence: true
   validates :altitude, presence: true
   
-  before_save :danger_counter
+  scope :current_average, -> { all.average(:altitude).to_f }
+
+  @@danger_counter = 0
+  @@resumed = 0
+  
+  before_save :danger_check
+  
+  def danger?
+    return true if @@danger_counter >= 6
+  end
   
   private
   
-  def danger_counter
-    if self.altitude < 160
-      HealthFacade.counter(1)
+  def danger_check
+    if Satellite.current_average < 160 && self.danger? == false && @@resumed == 0
+      @@danger_counter += 1
+    elsif Satellite.current_average > 160 && self.danger? == false && @@resumed == 0
+      @@resumed = 6
+      @@danger_counter = 0
+    else
+      @@resumed -= 1
+      @@danger_counter = 0
     end
   end
 end
