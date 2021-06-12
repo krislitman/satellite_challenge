@@ -1,8 +1,8 @@
 namespace :pull_data do
 
-  task run: :envrionment do
+  task run: :environment do
     Satellite.destroy_all
-    while True do
+    while true do
       SatelliteService.run
       sleep 10.seconds
     end
