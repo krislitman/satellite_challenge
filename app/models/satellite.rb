@@ -9,20 +9,27 @@ class Satellite < ApplicationRecord
   
   before_save :danger_check
   
-  def danger?
+  def self.danger?
     return true if @@danger_counter >= 6
+    false
+  end
+  
+  def self.resume_count
+    @@resumed
   end
   
   private
   
   def danger_check
-    if Satellite.current_average < 160 && self.danger? == false && @@resumed == 0
+    if Satellite.current_average < 160 && Satellite.danger? == false && @@resumed == 0
       @@danger_counter += 1
-    elsif Satellite.current_average > 160 && self.danger? == false && @@resumed == 0
+    elsif Satellite.current_average > 160 && Satellite.danger? == true && @@resumed == 0
       @@resumed = 6
       @@danger_counter = 0
-    else
+    elsif @@resumed > 0
       @@resumed -= 1
+      @@danger_counter = 0
+    else
       @@danger_counter = 0
     end
   end
