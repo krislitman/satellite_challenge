@@ -12,23 +12,18 @@ RSpec.describe '/health', type: :request do
   end
   
   
-  describe '/stats can return minimum altitude for past 5 minutes' do 
-    xit 'returns the expected data' do
+  describe '/health if the average altitude goes below 160km for more than 1 min' do 
+    it 'returns a warning message' do
       Satellite.destroy_all
-      satellites = create_list(:satellite, 10)
-      least = satellites.first
-      bad = create(
-        :satellite, last_updated: 10.minutes.ago, altitude: 100
-      )
+      create(:satellite, altitude: 150)
+      create_list(:satellite, 10, altitude: 170)
 
-      get '/api/v1/stats'
+      get '/api/v1/health'
 
       expected = JSON.parse(response.body, symbolize_names: true)
-
+      require 'pry'; binding.pry
       expect(expected[:data]).to be_a(Hash)
-      expect(expected[:data][:attributes].keys).to include(:minimum)
-      expect(expected[:data][:attributes][:minimum][0]).not_to eq(bad.altitude)
-      expect(expected[:data][:attributes][:minimum][0]).to eq(least.altitude)
+      # expect(expected[:data][:attributes].keys).to include(:message)
 
       sleep 1.seconds
     end
