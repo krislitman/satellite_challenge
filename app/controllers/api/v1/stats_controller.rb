@@ -1,7 +1,6 @@
 class Api::V1::StatsController < ApplicationController
   def find
     data = StatsFacade.new
-    
-    # render json: StatsSerializer(data), status: 201
+    render json: StatsSerializer.new(data), status: 200
   end
 end

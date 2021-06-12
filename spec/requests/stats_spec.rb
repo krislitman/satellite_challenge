@@ -6,7 +6,7 @@ RSpec.describe '/stats', type: :request do
   get '/api/v1/stats'
   
   expect(response).to be_successful
-  expect(response.status).to eq(201)
+  expect(response.status).to eq(200)
   end
   
   scenario '/stats can return minimum altitude for past 5 minutes' do 
@@ -20,6 +20,9 @@ RSpec.describe '/stats', type: :request do
     get '/api/v1/stats'
 
     expected = JSON.parse(response.body, symbolize_names: true)
-    require 'pry'; binding.pry
+    expect(expected[:data]).to be_a(Hash)
+    expect(expected[:data][:attributes].keys).to include(:minimum)
+    expect(expected[:data][:attributes][:minimum][0]).not_to eq(bad.altitude)
+    expect(expected[:data][:attributes][:minimum][0]).to eq(least.altitude)
   end
 end
