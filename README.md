@@ -49,21 +49,6 @@ your local machine for development and testing purposes.
 Example Response:
 
 ```
-{
-    "data": {
-        "id": "null",
-        "type": "five_minute_altitude_stats",
-        "attributes": {
-            "minimum": [
-                130.29195793775295
-            ],
-            "maximum": [
-                189.99543085469173
-            ],
-            "average": 160.514242921584
-        }
-    }
-}
 ```
 
 #### /health
@@ -77,6 +62,8 @@ Example Response:
 
 Example Response:
 
+```
+```
 
 ## Running the tests 
 

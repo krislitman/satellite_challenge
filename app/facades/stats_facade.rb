@@ -9,21 +9,23 @@ class StatsFacade
   end
   
   def find_minimum
-    Satellite.where("last_updated <= ? AND last_updated > ?", Time.now, 5.minutes.ago)
+    found = Satellite.within_five_minutes
     .order(:altitude)
     .limit(1)
     .pluck(:altitude)
+    found[0]
   end
   
   def find_maximum
-    Satellite.where("last_updated <= ? AND last_updated > ?", Time.now, 5.minutes.ago)
+    found = Satellite.within_five_minutes
     .order(altitude: :desc)
     .limit(1)
     .pluck(:altitude)
+    found[0]
   end
   
   def find_average
-    avg = Satellite.where("last_updated <= ? AND last_updated > ?", Time.now, 5.minutes.ago)
+    avg = Satellite.within_five_minutes
     .average(:altitude)
     
     avg.to_f

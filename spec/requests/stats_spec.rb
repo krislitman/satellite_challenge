@@ -27,8 +27,8 @@ RSpec.describe '/stats', type: :request do
 
       expect(expected[:data]).to be_a(Hash)
       expect(expected[:data][:attributes].keys).to include(:minimum)
-      expect(expected[:data][:attributes][:minimum][0]).not_to eq(bad.altitude)
-      expect(expected[:data][:attributes][:minimum][0]).to eq(least.altitude)
+      expect(expected[:data][:attributes][:minimum]).not_to eq(bad.altitude)
+      expect(expected[:data][:attributes][:minimum]).to eq(least.altitude)
 
       sleep 1.seconds
     end
@@ -49,8 +49,8 @@ RSpec.describe '/stats', type: :request do
 
       expect(expected[:data]).to be_a(Hash)
       expect(expected[:data][:attributes].keys).to include(:maximum)
-      expect(expected[:data][:attributes][:maximum][0]).not_to eq(bad.altitude)
-      expect(expected[:data][:attributes][:maximum][0]).to eq(max.altitude)
+      expect(expected[:data][:attributes][:maximum]).not_to eq(bad.altitude)
+      expect(expected[:data][:attributes][:maximum]).to eq(max.altitude)
 
       sleep 1.seconds
     end
