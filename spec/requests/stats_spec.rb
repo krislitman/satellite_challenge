@@ -12,8 +12,8 @@ RSpec.describe '/stats', type: :request do
   end
   
   
-  describe '/stats can return minimum altitude for past 5 minutes' do 
-    it 'returns the expected data' do
+  describe 'Stats can return minimum altitude for past 5 minutes' do 
+    it 'Returns the expected data' do
       Satellite.destroy_all
       satellites = create_list(:satellite, 10)
       least = satellites.first
@@ -27,15 +27,15 @@ RSpec.describe '/stats', type: :request do
 
       expect(expected[:data]).to be_a(Hash)
       expect(expected[:data][:attributes].keys).to include(:minimum)
-      expect(expected[:data][:attributes][:minimum][0]).not_to eq(bad.altitude)
-      expect(expected[:data][:attributes][:minimum][0]).to eq(least.altitude)
+      expect(expected[:data][:attributes][:minimum]).not_to eq(bad.altitude)
+      expect(expected[:data][:attributes][:minimum]).to eq(least.altitude)
 
       sleep 1.seconds
     end
   end
   
-  describe '/stats can return maximum altitude for past 5 minutes' do 
-    it 'returns the expected data' do
+  describe 'Can return maximum altitude for past 5 minutes' do 
+    it 'Returns the expected data' do
       Satellite.destroy_all
       satellites = create_list(:satellite, 10)
       max = satellites.last
@@ -49,15 +49,15 @@ RSpec.describe '/stats', type: :request do
 
       expect(expected[:data]).to be_a(Hash)
       expect(expected[:data][:attributes].keys).to include(:maximum)
-      expect(expected[:data][:attributes][:maximum][0]).not_to eq(bad.altitude)
-      expect(expected[:data][:attributes][:maximum][0]).to eq(max.altitude)
+      expect(expected[:data][:attributes][:maximum]).not_to eq(bad.altitude)
+      expect(expected[:data][:attributes][:maximum]).to eq(max.altitude)
 
       sleep 1.seconds
     end
   end
   
-  describe '/stats can return average altitude for past 5 minutes' do 
-    it 'returns the expected data' do
+  describe 'Can return average altitude for past 5 minutes' do 
+    it 'Returns the expected data' do
       Satellite.destroy_all
       satellites = create_list(:satellite, 10)
       bad = create(
