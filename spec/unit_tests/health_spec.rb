@@ -85,10 +85,63 @@ RSpec.describe '/health', type: :request do
       
       expected = JSON.parse(response.body, symbolize_names: true)
       
-      expect(expected[:data]).to be_a(Hash)
-      expect(expected[:data][:attributes].keys).to include(:message)
       expect(expected[:data][:attributes][:message]).to eq("WARNING: RAPID ORBITAL DECAY IMMINENT")
       
+      sleep 1.seconds
+    end
+  end
+  
+  describe '/health altitude can start off good' do 
+    it 'and return danger message if it is below altitude for over a minute' do
+      Satellite.destroy_all
+      Altitude.destroy_all
+      altitude = Altitude.create(status: "This should be a valid status")
+      danger = Danger.new
+      create(:satellite, altitude: 170)
+      response1 = danger.current_check
+      altitude.check_status(response1)
+      create(:satellite, altitude: 170)
+      response2 = danger.current_check
+      altitude.check_status(response2)
+      create(:satellite, altitude: 170)
+      response3 = danger.current_check
+      altitude.check_status(response3)
+      
+      get '/api/v1/health'
+      
+      expected = JSON.parse(response.body, symbolize_names: true)
+      
+      expect(expected[:data][:attributes][:message]).to eq("Altitude is A-OK")
+      
+      create(:satellite, altitude: 100)
+      response4 = danger.current_check
+      altitude.check_status(response4)
+      create(:satellite, altitude: 90)
+      response5 = danger.current_check
+      altitude.check_status(response5)
+      create(:satellite, altitude: 75)
+      response6 = danger.current_check
+      altitude.check_status(response6)
+      create(:satellite, altitude: 40)
+      response7 = danger.current_check
+      altitude.check_status(response7)
+      altitude.check_status(response5)
+      create(:satellite, altitude: 0)
+      response8 = danger.current_check
+      altitude.check_status(response8)
+      create(:satellite, altitude: 0)
+      response9 = danger.current_check
+      altitude.check_status(response9)
+      create(:satellite, altitude: 0)
+      response10 = danger.current_check
+      altitude.check_status(response10)
+      
+      get '/api/v1/health'
+      
+      expected = JSON.parse(response.body, symbolize_names: true)
+      
+      expect(expected[:data][:attributes][:message]).to eq("WARNING: RAPID ORBITAL DECAY IMMINENT")
+
       sleep 1.seconds
     end
   end
