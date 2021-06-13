@@ -21,12 +21,12 @@ and exposes an API
 ## Getting Started
 
 You will need Ruby version 2.5.3 and Rails version 5.2.6 installed on your local computer to run
-the application.
+the application
 
 ### Installing
 
 These instructions will get you up and running with a copy of the project on
-your local machine for development and testing purposes.
+your local machine for development and testing purposes
 
 1. Fork and clone this repo
 2. Install all the required packages in the Gemfile with the command: `bundle install`
