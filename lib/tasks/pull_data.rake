@@ -3,7 +3,7 @@ namespace :pull_data do
   task run: :environment do
     Satellite.destroy_all
     Altitude.destroy_all
-    altitude = Altitude.create(status: " ")
+    altitude = Altitude.create(status: "Begin")
     danger = Danger.new
     while true do
       SatelliteService.run
