@@ -36,6 +36,8 @@ your local machine for development and testing purposes.
 4. Run `rails s` simultaneously to start the rails server (located at localhost:3000)
 5. Enter endpoints (see below) into your browser or Postman to see JSON responses!
 
+![iTerm2 - krislitman@Kriss-MacBook-Pro___Code_Practice_Challenges_satellite_challenge](https://user-images.githubusercontent.com/56943408/121792755-cb515400-cbc6-11eb-852d-ed3f12330ed6.gif)
+
 ## Endpoints
 
 #### /stats
