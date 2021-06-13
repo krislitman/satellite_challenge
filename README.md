@@ -36,7 +36,7 @@ your local machine for development and testing purposes
 5. Enter endpoints (see below) into your browser or Postman to see JSON responses!<br>
 
 
-![iTerm2 - krislitman@Kriss-MacBook-Pro___Code_Practice_Challenges_satellite_challenge](https://user-images.githubusercontent.com/56943408/121792755-cb515400-cbc6-11eb-852d-ed3f12330ed6.gif)
+![iTerm-krislitman_Kriss-MacBook-Pro___Code_Practice_Challenges_satellite_challenge](https://user-images.githubusercontent.com/56943408/121817957-63e0e600-cc52-11eb-917c-1a0b99e94182.gif)
 
 ## Endpoints
 
