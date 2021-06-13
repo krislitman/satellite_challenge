@@ -40,7 +40,7 @@ your local machine for development and testing purposes.
 
 ## Endpoints
 
-#### /stats
+### Stats
 ```
 $ GET localhost:3000/api/v1/stats
 ```
@@ -68,7 +68,7 @@ Example Response:
 }
 ```
 
-#### /health
+### Health
 ```
 $ GET localhost:3000/api/v1/health
 ```
