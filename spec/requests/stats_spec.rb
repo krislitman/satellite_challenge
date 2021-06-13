@@ -12,8 +12,8 @@ RSpec.describe '/stats', type: :request do
   end
   
   
-  describe '/stats can return minimum altitude for past 5 minutes' do 
-    it 'returns the expected data' do
+  describe 'Stats can return minimum altitude for past 5 minutes' do 
+    it 'Returns the expected data' do
       Satellite.destroy_all
       satellites = create_list(:satellite, 10)
       least = satellites.first
@@ -34,8 +34,8 @@ RSpec.describe '/stats', type: :request do
     end
   end
   
-  describe '/stats can return maximum altitude for past 5 minutes' do 
-    it 'returns the expected data' do
+  describe 'Can return maximum altitude for past 5 minutes' do 
+    it 'Returns the expected data' do
       Satellite.destroy_all
       satellites = create_list(:satellite, 10)
       max = satellites.last
@@ -56,8 +56,8 @@ RSpec.describe '/stats', type: :request do
     end
   end
   
-  describe '/stats can return average altitude for past 5 minutes' do 
-    it 'returns the expected data' do
+  describe 'Can return average altitude for past 5 minutes' do 
+    it 'Returns the expected data' do
       Satellite.destroy_all
       satellites = create_list(:satellite, 10)
       bad = create(

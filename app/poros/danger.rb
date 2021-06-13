@@ -26,6 +26,7 @@ class Danger
       @counter += 1
       danger_message
     elsif Satellite.current_average > 160 && @in_danger == true 
+      @in_danger = false
       @resume_counter = 6
       @counter = 6
       sustained_message
