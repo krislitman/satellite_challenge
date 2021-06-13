@@ -1,6 +1,7 @@
 # Satellite Challenge
 
-### Rails API Application
+Rails API Application that uses a custom rake task to read in real-time altitude data, 
+and exposes an API.
 
 ## Table of Contents
 
@@ -19,7 +20,9 @@
 
 ## Getting Started
 
-<!-- Add application specific instructions -->
+To collect the real-time altitude data, you will need to run a rake task. This will run until you decide to 
+stop the process, and re-running the process will erase any previously collected data. You can request the 
+end-points as soon as you run the rake task & local server. See the instructions below to begin. 
 
 ### Installing
 
@@ -29,7 +32,7 @@ your local machine for development and testing purposes.
 1. Fork and Clone this repo
 2. Install all the required packages in the Gemfile with the command: `bundle install`
 3. Run `rails db:{drop,create,migrate}` to create and migrate the database
-4. Run the rake task `rails pull_data:run` which will create a new data object every 10 seconds based on satellite information
+4. Run the rake task `rails pull_data:run` which will read in the real-time altitude data
 4. Run `rails s` simultaneously to start the rails server (located at localhost:3000)
 5. Enter endpoints (see below) into your browser or Postman to see JSON responses!
 
@@ -41,7 +44,7 @@ your local machine for development and testing purposes.
 
 <ul>
   <li>
-    The **/stats** endpoint returns the minimum, maximum, and average altitude for
+    The /stats end-point returns the minimum, maximum, and average altitude for
     the satellite over the last five minutes
   </li>
 </ul>
@@ -49,6 +52,17 @@ your local machine for development and testing purposes.
 Example Response:
 
 ```
+{
+    "data": {
+        "id": "null",
+        "type": "five_minute_altitude_stats",
+        "attributes": {
+            "minimum": 160.0,
+            "maximum": 160.0,
+            "average": 160.0
+        }
+    }
+}
 ```
 
 #### /health
@@ -57,12 +71,23 @@ Example Response:
 
 <ul>
   <li>
+    The /health end-point returns a warning message when the satellite's average altitude goes below 160km for 
+    more than one minute, a message stating sustained low earth orbit resumed, or an 'OK' message 
   </li>
 </ul>
 
 Example Response:
 
 ```
+{
+    "data": {
+        "id": "null",
+        "type": "satellite_health",
+        "attributes": {
+            "message": "Altitude is A-OK"
+        }
+    }
+}
 ```
 
 ## Running the tests 
@@ -71,7 +96,8 @@ Example Response:
 To run the full test suite you will need to run the command:
 `bundle exec rspec`
 
-<!-- Add where to find and run unit tests -->
+To run the unit test, use the command:
+`bundle exec rspec spec/unit_tests/health_spec.rb`
 
 ## Built With
 
